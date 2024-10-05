@@ -4,19 +4,18 @@ import CommonTable from './CommonTable';
 import useColumns from './columns';
 import mockData from './mockData';
 import useContextMenu from './useContextMenu';
+import HistoryModal from './HistoryModal';
 import './styles.css'
-
 
 const Child1 = () => {
   const columns = useColumns();
   const [tableData, setTableData] = useState(mockData);
   const { setValue, getValues } = useFormContext();
-  const { menuVisible, menuPosition, handleContextMenu, hideContextMenu, menuRow } = useContextMenu();
+  const { menuVisible, menuPosition, handleContextMenu, menuRow } = useContextMenu();
+  const [isModalOpen, setModalOpen] = useState(false);
 
   const updateData = (rowIndex, columnId, value) => {
-    // Set value in useForm hook for form submission
     setValue(`tableData[${rowIndex}].${columnId}`, value);
-
     setTableData(old =>
       old.map((row, index) => {
         if (index === rowIndex) {
@@ -34,6 +33,10 @@ const Child1 = () => {
     });
   });
 
+  const handleModalSubmit = (data) => {
+    console.log('History Modal Data:', data);
+  };
+
   return (
     <div>
       <h3>Child 1 Table</h3>
@@ -50,10 +53,17 @@ const Child1 = () => {
           style={{ top: `${menuPosition.y}px`, left: `${menuPosition.x}px` }}
         >
           <li onClick={() => alert(`Summary for ${menuRow.name}`)}>Summary</li>
-          <li onClick={() => alert(`History for ${menuRow.name}`)}>History</li>
+          <li onClick={() => setModalOpen(true)}>History</li> {/* Open modal */}
           <li onClick={() => alert(`Email for ${menuRow.name}`)}>Email</li>
         </ul>
       )}
+
+      {/* History Modal */}
+      <HistoryModal
+        isOpen={isModalOpen}
+        onClose={() => setModalOpen(false)}
+        onSubmit={handleModalSubmit}
+      />
     </div>
   );
 };

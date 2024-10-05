@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import CommonTable from './CommonTable'; // Using the common table component
+import useHistoryModalColumns from './historyModalColumns';
 
 const HistoryModal = ({ rowData, onClose, updateHistoryData }) => {
   const [localHistory, setLocalHistory] = useState(rowData.historyData);
@@ -18,28 +20,12 @@ const HistoryModal = ({ rowData, onClose, updateHistoryData }) => {
     onClose();
   };
 
+  const columns = useHistoryModalColumns(handleInputChange); // Use the columns for modal
+
   return (
     <div className="modal">
       <h4>History for {rowData.name}</h4>
-      {localHistory.map((history, index) => (
-        <div key={index} className="history-row">
-          <input
-            type="date"
-            value={history.date}
-            onChange={(e) => handleInputChange(index, 'date', e.target.value)}
-          />
-          <input
-            type="text"
-            value={history.value}
-            onChange={(e) => handleInputChange(index, 'value', e.target.value)}
-          />
-          <input
-            type="text"
-            value={history.remarks}
-            onChange={(e) => handleInputChange(index, 'remarks', e.target.value)}
-          />
-        </div>
-      ))}
+      <CommonTable data={localHistory} columns={columns} updateData={handleInputChange} />
       <div className="modal-buttons">
         <button onClick={handleOk}>OK</button>
         <button onClick={onClose}>Cancel</button>

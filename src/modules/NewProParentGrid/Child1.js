@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useFormContext } from 'react-hook-form';
 import CommonTable from './CommonTable';
 import useColumns from './columns';
 import mockData from './mockData';
@@ -7,12 +6,9 @@ import useContextMenu from './useContextMenu';
 import HistoryModal from './HistoryModal';
 import './styles.css';
 
-const Child1 = () => {
-  const columns = useColumns();
+const Child1 = ({ setValue, getValues }) => {
   const [tableData, setTableData] = useState(mockData);
-  const { setValue, getValues } = useFormContext();
   const { menuVisible, menuPosition, handleContextMenu, hideContextMenu, menuRow } = useContextMenu();
-
   const [historyModalVisible, setHistoryModalVisible] = useState(false);
   const [historyRowData, setHistoryRowData] = useState(null);
 
@@ -27,6 +23,8 @@ const Child1 = () => {
       })
     );
   };
+
+  const columns = useColumns(updateData); // Pass updateData to useColumns
 
   const updateHistoryData = (rowIndex, historyIndex, field, value) => {
     const updatedTableData = [...tableData];

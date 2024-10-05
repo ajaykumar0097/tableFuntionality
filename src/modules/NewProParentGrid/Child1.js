@@ -13,6 +13,15 @@ const Child1 = ({ setValue, getValues }) => {
   const [historyRowData, setHistoryRowData] = useState(null);
 
   const updateData = (rowIndex, columnId, value) => {
+    // Check if Texas is selected
+    if (value === "Texas") {
+      const isTexasSelected = tableData.some((row, index) => index !== rowIndex && row[columnId] === "Texas");
+      if (isTexasSelected) {
+        alert("Texas can only be selected once.");
+        return; // Prevent selection
+      }
+    }
+
     setValue(`tableData[${rowIndex}].${columnId}`, value);
     setTableData((old) =>
       old.map((row, index) => {

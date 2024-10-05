@@ -1,5 +1,4 @@
 import React from 'react';
-import mockStateCityData from './mockStateCityData';
 
 const useColumns = (updateData) => {
   return React.useMemo(
@@ -33,46 +32,16 @@ const useColumns = (updateData) => {
         accessor: 'state',
         Cell: ({ row }) => (
           <select
-            value={row.original.state || ''}
-            onChange={(e) => {
-              const state = e.target.value;
-              updateData(row.index, 'state', state); // Update state in data
-              updateData(row.index, 'city', ''); // Reset city when state changes
-            }}
+            value={row.original.state}
+            onChange={(e) => updateData(row.index, 'state', e.target.value)}
           >
-            <option value="" disabled>
-              Select State
-            </option>
-            {mockStateCityData.states.map((state) => (
-              <option key={state} value={state}>
-                {state}
-              </option>
-            ))}
+            <option value="">Select State</option>
+            <option value="Texas">Texas</option>
+            <option value="California">California</option>
+            <option value="New York">New York</option>
+            {/* Add more options as needed */}
           </select>
         ),
-      },
-      {
-        Header: 'City',
-        accessor: 'city',
-        Cell: ({ row }) => {
-          const cities = mockStateCityData.cities[row.original.state] || [];
-          return (
-            <select
-              value={row.original.city || ''}
-              onChange={(e) => updateData(row.index, 'city', e.target.value)}
-              disabled={!row.original.state} // Disable if no state selected
-            >
-              <option value="" disabled>
-                Select City
-              </option>
-              {cities.map((city) => (
-                <option key={city} value={city}>
-                  {city}
-                </option>
-              ))}
-            </select>
-          );
-        },
       },
     ],
     [updateData]

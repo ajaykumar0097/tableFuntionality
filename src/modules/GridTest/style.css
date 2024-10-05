@@ -1,0 +1,104 @@
+/* src/App.css */
+.parent-container {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+  }
+  
+  .tab-container {
+    margin-bottom: 20px;
+  }
+  
+  .tab-container button {
+    padding: 10px 20px;
+    border: 1px solid #007bff;
+    background-color: white;
+    color: #007bff;
+    cursor: pointer;
+    margin-right: 10px;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  .tab-container button:hover {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  .active-tab {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  .submit-button {
+    padding: 10px 20px;
+    border: none;
+    background-color: #28a745;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .submit-button:hover {
+    background-color: #218838;
+  }
+  
+  .table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .table th,
+  .table td {
+    border: 1px solid black;
+    padding: 8px;
+    text-align: left;
+  }
+  
+  .table th {
+    background-color: #f2f2f2;
+  }
+/*   
+  .modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .modal > button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+  }
+   */
+/* src/App.css */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .modal > button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+  }
+  
+  .modal > h2 {
+    color: white;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  

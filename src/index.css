@@ -1,0 +1,63 @@
+/* Ensure the body and html occupy the full height */
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: Arial, sans-serif;
+  background-color: #f5f5f5;
+}
+
+/* Ensure parent container takes up full viewport height and centers content */
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 600px;
+  padding: 20px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Tab navigation buttons */
+.tab-navigator {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.tab-navigator button {
+  margin: 0 10px;
+  padding: 10px 20px;
+  cursor: pointer;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.tab-navigator button:hover {
+  background-color: #0056b3;
+}
+
+.tab-navigator .active {
+  background-color: #28a745;
+}
+
+/* Tab content area */
+.tab-content {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 18px;
+}
+
+/* Ensure the container doesn't take more than the necessary height */
+h2 {
+  margin-bottom: 10px;
+}

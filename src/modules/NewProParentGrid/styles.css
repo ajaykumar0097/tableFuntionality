@@ -1,0 +1,141 @@
+/* Parent component styling */
+.parent-container {
+    text-align: center;
+    margin: 40px;
+  }
+  
+  .app-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: 3rem;
+    color: #4A90E2;
+    animation: fadeIn 2s ease-in-out;
+  }
+  
+  .tab-navigator {
+    margin: 20px 0;
+  }
+  
+  .tab {
+    padding: 10px 20px;
+    margin: 0 10px;
+    background-color: #ddd;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    transition: background-color 0.3s ease;
+  }
+  
+  .tab:hover {
+    background-color: #4A90E2;
+    color: white;
+  }
+  
+  .active {
+    background-color: #4A90E2;
+    color: white;
+  }
+  
+  /* Child content styling */
+  .tab-content {
+    margin-top: 20px;
+  }
+  
+  .child-content {
+    background: linear-gradient(135deg, #F6D365 0%, #FDA085 100%);
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+    animation: slideIn 1.5s ease-in-out;
+  }
+  
+  /* Button styling in parent */
+  .button-group-parent {
+    margin-top: 20px;
+  }
+  
+  .btn {
+    padding: 10px 20px;
+    font-size: 1.2rem;
+    border-radius: 8px;
+    margin: 0 10px;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+  }
+  
+  .save-btn {
+    background-color: #4CAF50;
+    color: white;
+  }
+  
+  .draft-btn {
+    background-color: #FFC107;
+    color: white;
+  }
+  
+  .btn:hover {
+    transform: scale(1.1);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+  }
+
+  /* Common table styling */
+.common-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+  }
+  
+  .common-table th, .common-table td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: left;
+  }
+  
+  .common-table th {
+    background-color: #4A90E2;
+    color: white;
+  }
+  
+  .common-table tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  .common-table tbody tr:hover {
+    background-color: #ddd;
+  }
+  
+  /* Context menu styling */
+  .context-menu {
+    position: absolute;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    list-style: none;
+    padding: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+  }
+  
+  .context-menu li {
+    padding: 8px 12px;
+    cursor: pointer;
+  }
+  
+  .context-menu li:hover {
+    background-color: #4A90E2;
+    color: white;
+  }
+  
+  
+  /* Animation effects */
+  @keyframes fadeIn {
+    0% { opacity: 0; transform: translateY(-20px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+  
+  @keyframes slideIn {
+    0% { opacity: 0; transform: translateX(-30px); }
+    100% { opacity: 1; transform: translateX(0); }
+  }
+  

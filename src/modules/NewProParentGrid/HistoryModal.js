@@ -1,42 +1,48 @@
-// HistoryModal.js
 import React, { useState } from 'react';
-import './styles.css';
 
-const HistoryModal = ({ isOpen, onClose, onSubmit }) => {
-  const [input1, setInput1] = useState('');
-  const [input2, setInput2] = useState('');
+const HistoryModal = ({ rowData, onClose, updateHistoryData }) => {
+  const [localHistory, setLocalHistory] = useState(rowData.historyData);
 
-  if (!isOpen) return null; // Don't render if not open
+  const handleInputChange = (index, field, value) => {
+    const updatedHistory = [...localHistory];
+    updatedHistory[index][field] = value;
+    setLocalHistory(updatedHistory);
+  };
 
-  const handleSubmit = () => {
-    onSubmit({ input1, input2 });
-    onClose(); // Close modal after submit
+  const handleOk = () => {
+    localHistory.forEach((history, historyIndex) => {
+      Object.keys(history).forEach((field) => {
+        updateHistoryData(rowData.id - 1, historyIndex, field, history[field]); // Update original data
+      });
+    });
+    onClose();
   };
 
   return (
-    <div className="modal-overlay">
-      <div className="modal-content">
-        <h2>History Information</h2>
-        <label>
-          Input 1:
-          <input 
-            type="text" 
-            value={input1} 
-            onChange={(e) => setInput1(e.target.value)} 
+    <div className="modal">
+      <h4>History for {rowData.name}</h4>
+      {localHistory.map((history, index) => (
+        <div key={index} className="history-row">
+          <input
+            type="date"
+            value={history.date}
+            onChange={(e) => handleInputChange(index, 'date', e.target.value)}
           />
-        </label>
-        <label>
-          Input 2:
-          <input 
-            type="text" 
-            value={input2} 
-            onChange={(e) => setInput2(e.target.value)} 
+          <input
+            type="text"
+            value={history.value}
+            onChange={(e) => handleInputChange(index, 'value', e.target.value)}
           />
-        </label>
-        <div className="modal-buttons">
-          <button onClick={handleSubmit}>OK</button>
-          <button onClick={onClose}>Cancel</button>
+          <input
+            type="text"
+            value={history.remarks}
+            onChange={(e) => handleInputChange(index, 'remarks', e.target.value)}
+          />
         </div>
+      ))}
+      <div className="modal-buttons">
+        <button onClick={handleOk}>OK</button>
+        <button onClick={onClose}>Cancel</button>
       </div>
     </div>
   );

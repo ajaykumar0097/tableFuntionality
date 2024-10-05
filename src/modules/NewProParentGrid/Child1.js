@@ -5,18 +5,20 @@ import useColumns from './columns';
 import mockData from './mockData';
 import useContextMenu from './useContextMenu';
 import HistoryModal from './HistoryModal';
-import './styles.css'
+import './styles.css';
 
 const Child1 = () => {
   const columns = useColumns();
   const [tableData, setTableData] = useState(mockData);
   const { setValue, getValues } = useFormContext();
-  const { menuVisible, menuPosition, handleContextMenu, menuRow } = useContextMenu();
-  const [isModalOpen, setModalOpen] = useState(false);
+  const { menuVisible, menuPosition, handleContextMenu, hideContextMenu, menuRow } = useContextMenu();
+
+  const [historyModalVisible, setHistoryModalVisible] = useState(false);
+  const [historyRowData, setHistoryRowData] = useState(null);
 
   const updateData = (rowIndex, columnId, value) => {
     setValue(`tableData[${rowIndex}].${columnId}`, value);
-    setTableData(old =>
+    setTableData((old) =>
       old.map((row, index) => {
         if (index === rowIndex) {
           return { ...row, [columnId]: value };
@@ -26,15 +28,25 @@ const Child1 = () => {
     );
   };
 
-  // Register initial table data for form submission
+  const updateHistoryData = (rowIndex, historyIndex, field, value) => {
+    const updatedTableData = [...tableData];
+    updatedTableData[rowIndex].historyData[historyIndex][field] = value;
+    setTableData(updatedTableData);
+
+    // Update value in the useForm hook
+    setValue(`tableData[${rowIndex}].historyData[${historyIndex}].${field}`, value);
+  };
+
   tableData.forEach((row, rowIndex) => {
     Object.keys(row).forEach((columnId) => {
       setValue(`tableData[${rowIndex}].${columnId}`, row[columnId]);
     });
   });
 
-  const handleModalSubmit = (data) => {
-    console.log('History Modal Data:', data);
+  const handleHistoryClick = (row) => {
+    setHistoryRowData(row);
+    setHistoryModalVisible(true);
+    hideContextMenu(); // Hide context menu when opening modal
   };
 
   return (
@@ -53,17 +65,18 @@ const Child1 = () => {
           style={{ top: `${menuPosition.y}px`, left: `${menuPosition.x}px` }}
         >
           <li onClick={() => alert(`Summary for ${menuRow.name}`)}>Summary</li>
-          <li onClick={() => setModalOpen(true)}>History</li> {/* Open modal */}
+          <li onClick={() => handleHistoryClick(menuRow)}>History</li>
           <li onClick={() => alert(`Email for ${menuRow.name}`)}>Email</li>
         </ul>
       )}
 
-      {/* History Modal */}
-      <HistoryModal
-        isOpen={isModalOpen}
-        onClose={() => setModalOpen(false)}
-        onSubmit={handleModalSubmit}
-      />
+      {historyModalVisible && (
+        <HistoryModal
+          rowData={historyRowData}
+          onClose={() => setHistoryModalVisible(false)}
+          updateHistoryData={updateHistoryData}
+        />
+      )}
     </div>
   );
 };

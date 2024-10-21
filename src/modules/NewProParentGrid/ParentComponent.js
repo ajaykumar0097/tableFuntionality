@@ -8,10 +8,54 @@ const ParentComponent = () => {
   const [activeTab, setActiveTab] = useState('child1');
   const { handleSubmit, setValue, getValues } = useForm();
 
-  const handleSave = () => {
-    console.log('Saved Data:', getValues());  // Use getValues() to get all form data
+  const handleSave = (data) => {
+    console.log("cc", data);
+  
+    const tableData = getValues()?.tableData;
+  
+    if (!tableData || tableData.length === 0) {
+      alert("No table data available.");
+      return false;
+    }
+  
+    // Validate individual fields in each row
+    for (let rowIndex = 0; rowIndex < tableData.length; rowIndex++) {
+      const row = tableData[rowIndex];
+  
+      // Check each field for emptiness and return the first error
+      if (!row.name) {
+        alert(`Please fill the 'Name' field in row ${rowIndex + 1}, it is mandatory.`);
+        return false;
+      }
+      if (!row.address) {
+        alert(`Please fill the 'Address' field in row ${rowIndex + 1}, it is mandatory.`);
+        return false;
+      }
+      if (!row.city) {
+        alert(`Please fill the 'City' field in row ${rowIndex + 1}, it is mandatory.`);
+        return false;
+      }
+      if (!row.state) {
+        alert(`Please fill the 'State' field in row ${rowIndex + 1}, it is mandatory.`);
+        return false;
+      }
+    }
+  
+    // One-time check for consistent 'state' values across all rows
+    const stateValues = tableData.map(row => row.state);
+    const uniqueStates = [...new Set(stateValues)];
+  
+    if (uniqueStates.length > 1) {
+      alert("All rows must have the same 'State'. Please ensure that the 'State' field is consistent across all rows.");
+      return false;
+    }
+  
+    // If all fields are valid and 'state' is consistent across rows, return true
+    console.log("Form data is valid:", tableData);
+    return true;
   };
-
+  
+  
   const handleDraft = () => {
     console.log('Draft saved.');
   };
